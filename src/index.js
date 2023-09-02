@@ -1,11 +1,12 @@
 const express = require('express');
 const groceriesRoute = require('./routes/groceries');
 const marketsRoute = require('./routes/markets');
+const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 3001;
 
 app.use(express.json());
-
+app.use(cookieParser());
 app.use('/api', groceriesRoute);
 app.use('/api/markets', marketsRoute);
 

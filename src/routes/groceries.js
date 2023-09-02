@@ -19,10 +19,14 @@ const groceryList = [
 
 router.get('/groceries', (request, response) => {
   console.log('welcome');
+  response.cookie('visited', true, {
+    maxAge: 60000,
+  });
   response.send(groceryList);
 });
 
 router.get('/groceries/:item', (request, response) => {
+  console.log(request.cookies);
   const {item} = request.params;
   const groceryItem = groceryList.find(
     (element) => element.item === item
