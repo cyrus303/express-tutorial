@@ -6,37 +6,45 @@ const itemsList = [
   {
     id: 1,
     name: 'Apples',
-    price: 2.99,
+    price: 2,
     category: 'Fruits',
   },
   {
     id: 2,
     name: 'Bread',
-    price: 1.49,
+    price: 1,
     category: 'Bakery',
   },
   {
     id: 3,
     name: 'Milk',
-    price: 0.99,
+    price: 2,
     category: 'Dairy',
   },
   {
     id: 4,
     name: 'Eggs',
-    price: 1.99,
+    price: 4,
     category: 'Dairy',
   },
   {
     id: 5,
     name: 'Chicken',
-    price: 5.99,
+    price: 6,
     category: 'Meat',
   },
 ];
 
 router.get('/', (request, response) => {
-  response.send(itemsList);
+  const {price} = request.query;
+  if (!isNaN(+price)) {
+    const filtredList = itemsList.filter(
+      (element) => element.price > price
+    );
+    response.send(filtredList);
+  } else {
+    response.send(itemsList);
+  }
 });
 
 router.get('/:itemName', (request, response) => {
