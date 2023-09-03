@@ -2,6 +2,15 @@ const {Router} = require('express');
 
 const router = Router();
 
+router.use((request, response, next) => {
+  console.log(request.session);
+  if (request.session.user) {
+    next();
+  } else {
+    response.sendStatus(401);
+  }
+});
+
 const groceryList = [
   {
     item: 'milk',
@@ -17,7 +26,7 @@ const groceryList = [
   },
 ];
 
-router.get('/groceries', (request, response) => {
+router.get('/', (request, response) => {
   console.log('welcome');
   response.cookie('visited', true, {
     maxAge: 60000,
@@ -25,7 +34,7 @@ router.get('/groceries', (request, response) => {
   response.send(groceryList);
 });
 
-router.get('/groceries/:item', (request, response) => {
+router.get('/:item', (request, response) => {
   console.log(request.cookies);
   const {item} = request.params;
   const groceryItem = groceryList.find(
@@ -34,7 +43,7 @@ router.get('/groceries/:item', (request, response) => {
   response.send(groceryItem);
 });
 
-router.post('/groceries', (request, response) => {
+router.post('/', (request, response) => {
   console.log(request.body);
   groceryList.push(request.body);
   response.sendStatus(201);

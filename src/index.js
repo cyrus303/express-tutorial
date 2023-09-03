@@ -1,6 +1,8 @@
 const express = require('express');
 const groceriesRoute = require('./routes/groceries');
 const marketsRoute = require('./routes/markets');
+const authRoute = require('./routes/auth');
+
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
@@ -17,7 +19,9 @@ app.use(
   })
 );
 
-app.use('/api', groceriesRoute);
+app.use('/api/auth', authRoute);
+
+app.use('/api/groceries', groceriesRoute);
 app.use('/api/markets', marketsRoute);
 
 app.listen(PORT, () => {

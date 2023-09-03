@@ -2,6 +2,16 @@ const {Router} = require('express');
 
 const router = Router();
 
+router.use((request, response, next) => {
+  if (request.session.userName) {
+    console.log(request.session.userName);
+    next();
+  } else {
+    console.log(request.session.userName);
+    response.sendStatus(401);
+  }
+});
+
 const itemsList = [
   {
     id: 1,
