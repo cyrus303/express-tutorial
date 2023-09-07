@@ -6,6 +6,8 @@ const authRoute = require('./routes/auth');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
+require('./database');
+
 const app = express();
 const PORT = 3001;
 
